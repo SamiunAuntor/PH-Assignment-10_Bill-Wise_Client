@@ -14,6 +14,7 @@ const router = createBrowserRouter([
             {
                 index: true,
                 Component: HomePage,
+                loader: () => fetch('http://localhost:5000/public-bills'),
             },
             {
                 path: "/login",
