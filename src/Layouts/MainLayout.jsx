@@ -7,7 +7,7 @@ const MainLayout = () => {
         <div>
             <NavBar></NavBar>
             <Outlet>
-
+                {/* All pages will load here dynamically */}
             </Outlet>
         </div>
     );
