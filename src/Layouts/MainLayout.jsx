@@ -5,7 +5,7 @@ import Footer from '../Components/Footer';
 
 const MainLayout = () => {
     return (
-        <div>
+        <div className='max-w-[1440px]'>
             <NavBar></NavBar>
             <Outlet>
                 {/* All pages will load here dynamically */}
