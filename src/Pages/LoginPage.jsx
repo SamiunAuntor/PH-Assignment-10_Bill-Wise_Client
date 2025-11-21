@@ -33,6 +33,7 @@ const LoginPage = () => {
             toast.success(`Welcome ${displayName}! ✅`);
             await new Promise(resolve => setTimeout(resolve, 100));
             navigate(from, { replace: true });
+
         } catch (err) {
             // Use friendly error messages
             let message;
@@ -61,6 +62,7 @@ const LoginPage = () => {
             toast.success(`Welcome ${displayName}! ✅`);
             await new Promise(resolve => setTimeout(resolve, 100));
             navigate(from, { replace: true });
+            
         } catch (err) {
             let message;
             switch (err.code) {
