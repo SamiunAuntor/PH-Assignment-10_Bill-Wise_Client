@@ -97,7 +97,7 @@ const NavBar = () => {
                             <img
                                 src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
                                 alt="profile"
-                                className="h-10 w-10 rounded-full border border-blue-300 object-cover"
+                                className="h-10 w-10 rounded-full object-cover"
                             />
 
                             <button
@@ -166,7 +166,7 @@ const NavBar = () => {
                         <div className="w-full flex flex-col items-center mt-3">
                             <img
                                 src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
-                                className="h-12 w-12 rounded-full border mb-2"
+                                className="h-12 w-12 rounded-full mb-2"
                             />
 
                             <button
