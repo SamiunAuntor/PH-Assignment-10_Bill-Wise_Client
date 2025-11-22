@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { updateProfile, GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import app from "../AuthProvider/firebase.config";

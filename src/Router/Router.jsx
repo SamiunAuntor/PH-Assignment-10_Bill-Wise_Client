@@ -1,12 +1,12 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import HomePage from "../Pages/HomePage";
 import LoginPage from "../Pages/LoginPage";
 import SignUp from "../Pages/RegisterPage";
 import Error404Page from "../Pages/Error404Page";
 import BillsPage from "../Pages/BillsPage";
-
-
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import BillDetailsPage from "../Pages/BillDetailsPage";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +16,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 Component: HomePage,
-                loader: () => fetch('http://localhost:5000/public-bills'),
+                loader: async () => {
+                    const res = await fetch("http://localhost:5000/public-bills");
+                    return res.json();
+                },
             },
             {
                 path: "/login",
@@ -29,19 +32,29 @@ const router = createBrowserRouter([
             {
                 path: "/bills",
                 Component: BillsPage,
-                loader: () => fetch('http://localhost:5000/all-public-bills'),
-            }
-
-        ]
+                loader: async () => {
+                    const res = await fetch("http://localhost:5000/all-public-bills");
+                    return res.json();
+                },
+            },
+            {
+                path: "/bills/:id",
+                loader: async ({ params }) => {
+                    const res = await fetch(`http://localhost:5000/public-bill/${params.id}`);
+                    return res.json();
+                },
+                element: (
+                    <PrivateRoute>
+                        <BillDetailsPage />
+                    </PrivateRoute>
+                ),
+            },
+        ],
     },
     {
         path: "/*",
         Component: Error404Page,
-    }
-
-])
-
-
-
+    },
+]);
 
 export default router;
