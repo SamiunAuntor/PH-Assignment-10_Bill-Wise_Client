@@ -6,7 +6,7 @@ const Error404Page = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-blue-50 px-4">
-            {/* Big 404 text */}
+            {/* 404 text */}
             <h1 className="text-6xl md:text-8xl font-bold text-blue-600 mb-4">404</h1>
 
             {/* Message */}

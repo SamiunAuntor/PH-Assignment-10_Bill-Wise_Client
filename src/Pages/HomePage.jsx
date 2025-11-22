@@ -10,10 +10,10 @@ const HomePage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Ensure loader shows at least 2s
+        // Ensure loader shows at least 0.5s
         const timer = setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 500);
 
         return () => clearTimeout(timer);
     }, []);

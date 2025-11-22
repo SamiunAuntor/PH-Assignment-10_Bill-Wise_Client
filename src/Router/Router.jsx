@@ -4,6 +4,7 @@ import HomePage from "../Pages/HomePage";
 import LoginPage from "../Pages/LoginPage";
 import SignUp from "../Pages/RegisterPage";
 import Error404Page from "../Pages/Error404Page";
+import BillsPage from "../Pages/BillsPage";
 
 
 
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 Component: SignUp,
+            },
+            {
+                path: "/bills",
+                Component: BillsPage,
+                loader: () => fetch('http://localhost:5000/all-public-bills'),
             }
 
         ]
