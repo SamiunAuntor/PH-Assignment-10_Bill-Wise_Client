@@ -74,10 +74,10 @@ const BillsPage = () => {
                         <div
                             key={bill._id}
                             className="bg-white shadow-md rounded-xl p-4 hover:shadow-lg transition duration-300 
-                                       h-[520px] flex flex-col"
+                                       h-[550px] flex flex-col"
                         >
                             {/* image */}
-                            <div className="w-full h-[370px] bg-blue-200 rounded-lg overflow-hidden">
+                            <div className="w-full h-[400px] bg-blue-200 rounded-lg overflow-hidden">
                                 <img
                                     src={bill.image || "/default-bill.jpg"}
                                     alt="bill"
