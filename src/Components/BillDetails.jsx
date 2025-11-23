@@ -93,7 +93,7 @@ const BillDetails = ({ bill }) => {
             {/* Two-column layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
 
-                <div className="w-full h-[300px] md:h-[550px] rounded-xl overflow-hidden">
+                <div className="w-full h-[320px] md:h-[550px] rounded-xl overflow-hidden">
                     <img
                         src={bill.image || "/default-bill.jpg"}
                         alt="Bill"

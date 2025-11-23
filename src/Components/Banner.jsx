@@ -39,9 +39,9 @@ const Banner = () => {
     return (
         <div className="pt-10">
             <div
-                className="relative w-11/12 mx-auto pt-8 rounded-xl overflow-hidden"
-                style={{ height: "80vh" }}
+                className="relative w-11/12 mx-auto pt-8 rounded-xl overflow-hidden h-[40vh] md:h-[80vh]"
             >
+
                 {slides.map((slide, index) => (
                     <div
                         key={index}

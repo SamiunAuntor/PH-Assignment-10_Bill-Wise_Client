@@ -53,7 +53,7 @@ const BillsPage = () => {
                 </h2>
 
                 {/* Filtering */}
-                <div className="flex justify-end mb-6">
+                <div className="flex justify-center mb-6">
                     <select
                         value={selectedCategory}
                         onChange={(e) => handleCategoryChange(e.target.value)}
