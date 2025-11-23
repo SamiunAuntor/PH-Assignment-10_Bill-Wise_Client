@@ -4,6 +4,7 @@ import CategorySection from '../Components/CategorySection';
 import { useLoaderData } from 'react-router-dom';
 import RecentBills from '../Components/RecentBills/RecentBills';
 import { LifeLine } from 'react-loading-indicators';
+import WhyChooseBillWise from '../Components/WhyChooseBillWise';
 
 const HomePage = () => {
     const recentBillsData = useLoaderData();
@@ -31,6 +32,7 @@ const HomePage = () => {
             <Banner />
             <CategorySection />
             <RecentBills recentBillsData={recentBillsData} />
+            <WhyChooseBillWise></WhyChooseBillWise>
         </div>
     );
 };

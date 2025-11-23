@@ -28,10 +28,10 @@ const Footer = () => {
                     <Link to="/about" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
                         <Info size={16} /> About
                     </Link>
-                    <Link to="/contact" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
+                    <Link to="/about" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
                         <Mail size={16} /> Contact
                     </Link>
-                    <Link to="/privacy" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
+                    <Link to="/about" className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
                         <Shield size={16} /> Privacy Policy
                     </Link>
                 </div>
