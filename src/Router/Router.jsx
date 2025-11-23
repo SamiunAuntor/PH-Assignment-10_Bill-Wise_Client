@@ -8,15 +8,17 @@ import BillsPage from "../Pages/BillsPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import BillDetailsPage from "../Pages/BillDetailsPage";
 import MyPayBillsPage from "../Pages/MyPayBillsPage";
+import AboutPage from "../Pages/AboutPage";
+import MyProfilePage from "../Pages/MyProfilePage";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        Component: MainLayout,
+        element: <MainLayout />,
         children: [
             {
                 index: true,
-                Component: HomePage,
+                element: <HomePage />,
                 loader: async () => {
                     const res = await fetch("http://localhost:5000/public-bills");
                     return res.json();
@@ -24,15 +26,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/login",
-                Component: LoginPage,
+                element: <LoginPage />,
             },
             {
                 path: "/register",
-                Component: SignUp,
+                element: <SignUp />,
             },
             {
                 path: "/bills",
-                Component: BillsPage,
+                element: <BillsPage />,
                 loader: async () => {
                     const res = await fetch("http://localhost:5000/all-public-bills");
                     return res.json();
@@ -40,15 +42,15 @@ const router = createBrowserRouter([
             },
             {
                 path: "/bills/:id",
-                loader: async ({ params }) => {
-                    const res = await fetch(`http://localhost:5000/public-bill/${params.id}`);
-                    return res.json();
-                },
                 element: (
                     <PrivateRoute>
                         <BillDetailsPage />
                     </PrivateRoute>
                 ),
+                loader: async ({ params }) => {
+                    const res = await fetch(`http://localhost:5000/public-bill/${params.id}`);
+                    return res.json();
+                },
             },
             {
                 path: "/my-pay-bills",
@@ -56,15 +58,25 @@ const router = createBrowserRouter([
                     <PrivateRoute>
                         <MyPayBillsPage />
                     </PrivateRoute>
-                )
-            }
-
-
+                ),
+            },
+            {
+                path: "/about",
+                element: <AboutPage />,
+            },
+            {
+                path: "/my-profile",
+                element: (
+                    <PrivateRoute>
+                        <MyProfilePage />
+                    </PrivateRoute>
+                ),
+            },
         ],
     },
     {
         path: "/*",
-        Component: Error404Page,
+        element: <Error404Page />,
     },
 ]);
 

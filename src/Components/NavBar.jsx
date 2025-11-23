@@ -35,7 +35,6 @@ const NavBar = () => {
 
                 {/* Desktop Menu */}
                 <ul className="hidden md:flex items-center gap-8 text-gray-700 font-medium">
-
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
@@ -54,16 +53,38 @@ const NavBar = () => {
                         Bills
                     </NavLink>
 
+                    {/* About - Public Route */}
+                    <NavLink
+                        to="/about"
+                        className={({ isActive }) =>
+                            `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
+                        }
+                    >
+                        About
+                    </NavLink>
+
                     {/* Only logged in */}
                     {user && (
-                        <NavLink
-                            to="/my-pay-bills"
-                            className={({ isActive }) =>
-                                `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
-                            }
-                        >
-                            My Pay Bills
-                        </NavLink>
+                        <>
+                            <NavLink
+                                to="/my-pay-bills"
+                                className={({ isActive }) =>
+                                    `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
+                                }
+                            >
+                                My Pay Bills
+                            </NavLink>
+
+                            {/* Added My Profile link */}
+                            <NavLink
+                                to="/my-profile"
+                                className={({ isActive }) =>
+                                    `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
+                                }
+                            >
+                                My Profile
+                            </NavLink>
+                        </>
                     )}
 
                     {/* Not logged in → Login + Register */}
@@ -115,7 +136,6 @@ const NavBar = () => {
             {/* Mobile Menu */}
             {open && (
                 <ul className="md:hidden flex flex-col w-11/12 mx-auto bg-white pb-3 rounded-md shadow-[0_4px_12px_rgba(59,130,246,0.15)] justify-center items-center">
-
                     <NavLink
                         to="/"
                         onClick={() => setOpen(false)}
@@ -132,14 +152,34 @@ const NavBar = () => {
                         Bills
                     </NavLink>
 
+                    {/* About */}
+                    <NavLink
+                        to="/about"
+                        onClick={() => setOpen(false)}
+                        className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
+                    >
+                        About
+                    </NavLink>
+
                     {user && (
-                        <NavLink
-                            to="/my-pay-bills"
-                            onClick={() => setOpen(false)}
-                            className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
-                        >
-                            My Pay Bills
-                        </NavLink>
+                        <>
+                            <NavLink
+                                to="/my-pay-bills"
+                                onClick={() => setOpen(false)}
+                                className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
+                            >
+                                My Pay Bills
+                            </NavLink>
+
+                            {/* My Profile for mobile */}
+                            <NavLink
+                                to="/my-profile"
+                                onClick={() => setOpen(false)}
+                                className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
+                            >
+                                My Profile
+                            </NavLink>
+                        </>
                     )}
 
                     {!user && (
