@@ -46,13 +46,13 @@ const WhyChooseBillWise = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
                 {features.map((item, index) => (
                     <Zoom triggerOnce key={index}>
-                        <div className="bg-white shadow-md p-6 rounded-2xl border border-blue-100 hover:shadow-xl hover:-translate-y-2 transition duration-300 flex flex-col h-[390px]">
+                        <div className="bg-white shadow-md p-6 rounded-2xl border border-blue-100 hover:shadow-xl hover:-translate-y-2 transition duration-300 flex flex-col h-[490px] md:h-[430px]">
 
                             {/* Image */}
                             <img
                                 src={item.img}
                                 alt={item.title}
-                                className="w-full h-52 object-cover rounded-xl mb-4"
+                                className="w-full h-85  object-cover rounded-xl mb-4 md:h-70"
                             />
 
                             {/* Title */}

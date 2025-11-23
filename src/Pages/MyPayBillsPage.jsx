@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-
 const MyPayBillsPage = () => {
     const { user } = useContext(AuthContext);
     const [bills, setBills] = useState([]);
@@ -118,6 +117,12 @@ const MyPayBillsPage = () => {
 
     // update bill
     const handleUpdate = async () => {
+        // exactly 11 digits
+        if (!/^\d{11}$/.test(form.phone)) {
+            Swal.fire("Invalid Phone", "Phone number must be exactly 11 digits.", "warning");
+            return;
+        }
+
         try {
             const token = await user.getIdToken();
 
@@ -132,6 +137,9 @@ const MyPayBillsPage = () => {
 
             setEditModalOpen(false);
             fetchBills();
+
+            // Show SweetAlert success
+            Swal.fire("Success", "Bill updated successfully!", "success");
         } catch (err) {
             console.error("Update error:", err);
         }
@@ -279,8 +287,12 @@ const MyPayBillsPage = () => {
                                 placeholder="Amount"
                                 value={form.amount}
                                 onChange={(e) =>
-                                    setForm({ ...form, amount: Number(e.target.value) })
+                                    setForm({
+                                        ...form,
+                                        amount: e.target.value === "" ? "" : Number(e.target.value)
+                                    })
                                 }
+
                                 className="px-4 py-2 border border-blue-300 rounded-lg w-full
                     focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                             />
@@ -304,9 +316,11 @@ const MyPayBillsPage = () => {
                                 type="text"
                                 placeholder="Phone"
                                 value={form.phone}
-                                onChange={(e) =>
-                                    setForm({ ...form, phone: e.target.value })
-                                }
+                                onChange={(e) => {
+                                    // allow only digits, max 11
+                                    const value = e.target.value.replace(/\D/g, "").slice(0, 11);
+                                    setForm({ ...form, phone: value });
+                                }}
                                 className="px-4 py-2 border border-blue-300 rounded-lg w-full
                     focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                             />
@@ -334,8 +348,6 @@ const MyPayBillsPage = () => {
                     </div>
                 </div>
             )}
-
-
         </div>
     );
 };
