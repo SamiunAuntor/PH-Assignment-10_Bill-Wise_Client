@@ -77,7 +77,7 @@ const BillsPage = () => {
                                        h-[550px] flex flex-col"
                         >
                             {/* image */}
-                            <div className="w-full h-[400px] bg-blue-200 rounded-lg overflow-hidden">
+                            <div className="w-full h-[450px] bg-blue-200 rounded-lg overflow-hidden">
                                 <img
                                     src={bill.image || "/default-bill.jpg"}
                                     alt="bill"

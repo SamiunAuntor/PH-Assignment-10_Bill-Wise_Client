@@ -7,6 +7,7 @@ import Error404Page from "../Pages/Error404Page";
 import BillsPage from "../Pages/BillsPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import BillDetailsPage from "../Pages/BillDetailsPage";
+import MyPayBillsPage from "../Pages/MyPayBillsPage";
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,16 @@ const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
+            {
+                path: "/my-pay-bills",
+                element: (
+                    <PrivateRoute>
+                        <MyPayBillsPage />
+                    </PrivateRoute>
+                )
+            }
+
+
         ],
     },
     {
