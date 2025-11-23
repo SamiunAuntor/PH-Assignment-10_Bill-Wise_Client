@@ -3,6 +3,9 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { LifeLine } from "react-loading-indicators";
 import { Edit, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
 
 const MyPayBillsPage = () => {
     const { user } = useContext(AuthContext);
@@ -12,6 +15,60 @@ const MyPayBillsPage = () => {
     // modal states
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [selectedBill, setSelectedBill] = useState(null);
+
+    // PDF generation
+    const handleDownloadReport = () => {
+        if (!bills || bills.length === 0) {
+            Swal.fire("No bills found", "You have no bills to download.", "info");
+            return;
+        }
+
+        const doc = new jsPDF();
+
+        doc.setFontSize(18);
+        doc.text("My Bills Report", 14, 22);
+
+        const tableColumn = ["Username", "Email", "Amount", "Address", "Phone", "Date"];
+        const tableRows = [];
+
+        bills.forEach(bill => {
+            const billData = [
+                bill.username,
+                bill.email,
+                `${bill.amount} BDT`,
+                bill.address,
+                bill.phone,
+                bill.createdAt ? new Date(bill.createdAt).toLocaleDateString() : "N/A"
+            ];
+            tableRows.push(billData);
+        });
+
+        try {
+            autoTable(doc, {
+                startY: 30,
+                head: [tableColumn],
+                body: tableRows,
+                theme: "grid",
+                headStyles: { fillColor: [56, 178, 172] },
+            });
+
+            const totalBills = bills.length;
+            const totalAmount = bills.reduce((sum, bill) => sum + (bill.amount || 0), 0);
+
+            const finalY = doc?.lastAutoTable?.finalY || 40;
+            doc.text(
+                `Total Bills: ${totalBills}    Total Amount: ${totalAmount} BDT`,
+                14,
+                finalY + 10
+            );
+
+            // Trigger download
+            doc.save(`my_bills_report_${new Date().toISOString().slice(0, 10)}.pdf`);
+        } catch (err) {
+            console.error("PDF generation error:", err);
+            Swal.fire("Error", "Failed to generate the PDF report. Check console.", "error");
+        }
+    };
 
     // form fields
     const [form, setForm] = useState({
@@ -127,14 +184,23 @@ const MyPayBillsPage = () => {
                 My Paid Bills
             </h1>
 
-            {/* Summary */}
-            <div className="mb-6 bg-white shadow p-5 rounded-lg flex flex-col md:flex-row gap-4 md:gap-10 justify-center text-lg items-center">
-                <p className="font-semibold">
-                    Total Bills Paid: <span className="text-blue-600">{totalBills}</span>
-                </p>
-                <p className="font-semibold">
-                    Total Amount: <span className="text-green-600">৳{totalAmount}</span>
-                </p>
+            {/* Summary & Download */}
+            <div className="mb-6 bg-white shadow p-5 rounded-lg flex flex-col md:flex-row gap-4 md:gap-10 justify-between items-center">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-10 justify-center text-lg">
+                    <p className="font-semibold">
+                        Total Bills Paid: <span className="text-blue-600">{totalBills}</span>
+                    </p>
+                    <p className="font-semibold">
+                        Total Amount: <span className="text-green-600">৳{totalAmount}</span>
+                    </p>
+                </div>
+
+                <button
+                    onClick={handleDownloadReport}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+                >
+                    Download Report
+                </button>
             </div>
 
             {/* Table */}
