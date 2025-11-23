@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typewriter } from "react-simple-typewriter";
+import { Fade, Slide } from "react-awesome-reveal";
 
 // Background images
 import bg1 from "../assets/bg1.jpg";
@@ -21,6 +22,7 @@ const Banner = () => {
 
     const [currentSlide, setCurrentSlide] = useState(0);
     const [showText, setShowText] = useState(true);
+    const [firstLoad, setFirstLoad] = useState(true);
 
     useEffect(() => {
         const slideDuration = 5000;
@@ -30,6 +32,7 @@ const Banner = () => {
             setTimeout(() => {
                 setCurrentSlide((prev) => (prev + 1) % slides.length);
                 setShowText(true);
+                setFirstLoad(false); 
             }, 300);
         }, slideDuration);
 
@@ -41,7 +44,6 @@ const Banner = () => {
             <div
                 className="relative w-11/12 mx-auto pt-8 rounded-xl overflow-hidden h-[40vh] md:h-[80vh]"
             >
-
                 {slides.map((slide, index) => (
                     <div
                         key={index}
@@ -57,17 +59,43 @@ const Banner = () => {
                         {/* Overlay */}
                         <div className="w-full h-full bg-black/40 flex items-center justify-center px-4">
                             {index === currentSlide && showText && (
-                                <h1 className="text-3xl md:text-5xl font-bold text-white text-center">
-                                    <Typewriter
-                                        words={[slide.text]}
-                                        loop={1}
-                                        cursor
-                                        cursorStyle="|"
-                                        typeSpeed={70}
-                                        deleteSpeed={50}
-                                        delaySpeed={500}
-                                    />
-                                </h1>
+                                <div className="w-full text-center">
+                                    {firstLoad ? (
+                                        <Slide direction="up" triggerOnce>
+                                            <Fade triggerOnce>
+                                                <div>
+                                                    <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
+                                                        <Typewriter
+                                                            words={[slide.text]}
+                                                            loop={1}
+                                                            cursor
+                                                            cursorStyle="|"
+                                                            typeSpeed={70}
+                                                            deleteSpeed={50}
+                                                            delaySpeed={500}
+                                                        />
+                                                    </h1>
+                                                </div>
+                                            </Fade>
+                                        </Slide>
+                                    ) : (
+                                        <Fade triggerOnce key={currentSlide} duration={1000}>
+                                            <div>
+                                                <h1 className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
+                                                    <Typewriter
+                                                        words={[slide.text]}
+                                                        loop={1}
+                                                        cursor
+                                                        cursorStyle="|"
+                                                        typeSpeed={70}
+                                                        deleteSpeed={50}
+                                                        delaySpeed={500}
+                                                    />
+                                                </h1>
+                                            </div>
+                                        </Fade>
+                                    )}
+                                </div>
                             )}
                         </div>
                     </div>
