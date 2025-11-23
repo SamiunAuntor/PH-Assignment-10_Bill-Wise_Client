@@ -159,8 +159,8 @@ const BillDetails = ({ bill }) => {
                                     type="email"
                                     value={user?.email || ""}
                                     readOnly
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full 
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                 />
                             </div>
 
@@ -171,7 +171,7 @@ const BillDetails = ({ bill }) => {
                                     value={bill._id}
                                     readOnly
                                     className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                 />
                             </div>
 
@@ -182,7 +182,7 @@ const BillDetails = ({ bill }) => {
                                     value={bill.amount}
                                     readOnly
                                     className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                 />
                             </div>
 
@@ -194,7 +194,7 @@ const BillDetails = ({ bill }) => {
                                     onChange={(e) => setUsername(e.target.value)}
                                     placeholder="Your Name"
                                     className="mt-1 px-4 py-2 border border-blue-300 rounded-lg w-full
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                     required
                                 />
                             </div>
@@ -207,7 +207,7 @@ const BillDetails = ({ bill }) => {
                                     onChange={(e) => setAddress(e.target.value)}
                                     placeholder="Your Address"
                                     className="mt-1 px-4 py-2 border border-blue-300 rounded-lg w-full
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                     required
                                 />
                             </div>
@@ -225,7 +225,7 @@ const BillDetails = ({ bill }) => {
                                         }}
                                         placeholder="11-digit number"
                                         className="px-4 py-2 border border-blue-300 rounded-lg w-full
-                                                   focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                       focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                         required
                                     />
                                 </div>
@@ -239,7 +239,7 @@ const BillDetails = ({ bill }) => {
                                     value={new Date().toLocaleDateString()}
                                     readOnly
                                     className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                 />
                             </div>
 
@@ -250,7 +250,7 @@ const BillDetails = ({ bill }) => {
                                     onChange={(e) => setAdditionalInfo(e.target.value)}
                                     placeholder="Optional notes..."
                                     className="mt-1 px-4 py-2 border border-blue-300 rounded-lg w-full
-                                               focus:border-blue-500 focus:ring-2 focus:ring-blue-300 outline-none"
+                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
                                 ></textarea>
                             </div>
 
@@ -259,7 +259,7 @@ const BillDetails = ({ bill }) => {
                                     type="submit"
                                     disabled={submitting}
                                     className={`w-full py-3 rounded-lg font-semibold text-white transition 
-                                        ${submitting ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"}`}
+                            ${submitting ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"}`}
                                 >
                                     {submitting ? "Submitting..." : "Submit Payment"}
                                 </button>
@@ -269,6 +269,7 @@ const BillDetails = ({ bill }) => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
