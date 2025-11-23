@@ -88,19 +88,20 @@ const BillDetails = ({ bill }) => {
     };
 
     return (
-        <div className="w-11/12 mx-auto bg-white shadow-lg rounded-2xl p-6 mt-10">
+        <div className="w-11/12 mx-auto bg-white shadow-lg rounded-2xl p-6 mt-0">
 
             {/* Two-column layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
 
-                {/* LEFT: Image */}
-                <div className="w-full h-[570px] rounded-xl overflow-hidden">
+                <div className="w-full h-[300px] md:h-[550px] rounded-xl overflow-hidden">
                     <img
                         src={bill.image || "/default-bill.jpg"}
                         alt="Bill"
                         className="w-full h-full object-cover"
                     />
                 </div>
+
+
 
                 {/* RIGHT: Content */}
                 <div>
@@ -113,9 +114,10 @@ const BillDetails = ({ bill }) => {
                         <p><strong>Date:</strong> {bill.date}</p>
                     </div>
 
-                    <p className="mt-6 text-gray-500 text-md leading-relaxed">
+                    <p className="mt-6 text-gray-500 text-md leading-relaxed text-justify">
                         {bill.description || "No description available."}
                     </p>
+
 
                     <button
                         disabled={!isCurrentMonth || alreadyPaid}
