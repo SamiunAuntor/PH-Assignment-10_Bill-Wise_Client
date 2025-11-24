@@ -1,6 +1,6 @@
  # Bill Wise - Utility Bill Management System
 
-**Client Side Repository:** [https://github.com/SamiunAuntor/PH-Assignment-10_Bill-Wise_Client](https://github.com/SamiunAuntor/PH-Assignment-10_Bill-Wise_Client)
+**Server Side Repository:** [https://github.com/SamiunAuntor/PH-Assignment-10_Bill-Wise_Server](https://github.com/SamiunAuntor/PH-Assignment-10_Bill-Wise_Server)
 
 A modern, secure MERN Stack web application for managing monthly utility bills. Users can view, pay, and update bills for Electricity, Gas, Water, and Internet, with responsive UI, advanced search, PDF report downloads, and more.
 
