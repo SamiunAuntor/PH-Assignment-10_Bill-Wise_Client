@@ -50,7 +50,7 @@ const SignUp = () => {
             e.target.reset();
             await new Promise(resolve => setTimeout(resolve, 100));
             navigate("/");
-            window.location.reload();
+            // window.location.reload();
 
         } catch (err) {
             let message;

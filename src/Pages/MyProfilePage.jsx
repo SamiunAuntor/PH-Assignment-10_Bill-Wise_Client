@@ -18,7 +18,7 @@ const MyProfilePage = () => {
         setLoading(true);
         try {
             const token = await user.getIdToken();
-            const res = await fetch(`http://localhost:5000/my-bills?email=${user.email}`, {
+            const res = await fetch(`https://bill-wise-server.vercel.app/my-bills?email=${user.email}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();

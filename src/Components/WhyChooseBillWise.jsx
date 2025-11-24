@@ -8,22 +8,22 @@ import wcu4 from "../assets/wcu-4.png";
 const WhyChooseBillWise = () => {
     const features = [
         {
-            img: wcu1,
+            img: wcu4,
             title: "Secure Payments",
             desc: "Your bill transactions are encrypted and protected.",
         },
         {
-            img: wcu2,
+            img: wcu3,
             title: "One-click Bill History",
             desc: "Instantly access all your previous payments.",
         },
         {
-            img: wcu3,
+            img: wcu2,
             title: "Monthly Bill Control",
             desc: "Track your spending and avoid unexpected charges.",
         },
         {
-            img: wcu4,
+            img: wcu1,
             title: "Personalized Dashboard",
             desc: "Everything tailored to your bill payment needs.",
         },

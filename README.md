@@ -6,7 +6,7 @@ A modern, secure MERN Stack web application for managing monthly utility bills. 
 
 ## 🌐 Live Demo
 
-**🔗 [View Live Application](https://bill-wise-client-dummy.netlify.app/)**
+**🔗 [View Live Application](https://billwise-375a5.web.app/)**
 
 **📦 [GitHub Repository](https://github.com/SamiunAuntor/PH-Assignment-10_Bill-Wise_Client)**
 

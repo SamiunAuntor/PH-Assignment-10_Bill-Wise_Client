@@ -20,7 +20,7 @@ const router = createBrowserRouter([
                 index: true,
                 element: <HomePage />,
                 loader: async () => {
-                    const res = await fetch("http://localhost:5000/public-bills");
+                    const res = await fetch("https://bill-wise-server.vercel.app/public-bills");
                     return res.json();
                 },
             },
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
                 path: "/bills",
                 element: <BillsPage />,
                 loader: async () => {
-                    const res = await fetch("http://localhost:5000/all-public-bills");
+                    const res = await fetch("https://bill-wise-server.vercel.app/all-public-bills");
                     return res.json();
                 },
             },
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
                 loader: async ({ params }) => {
-                    const res = await fetch(`http://localhost:5000/public-bill/${params.id}`);
+                    const res = await fetch(`https://bill-wise-server.vercel.app/public-bill/${params.id}`);
                     return res.json();
                 },
             },
