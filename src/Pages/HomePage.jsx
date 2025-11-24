@@ -5,6 +5,7 @@ import { useLoaderData } from 'react-router-dom';
 import RecentBills from '../Components/RecentBills/RecentBills';
 import { LifeLine } from 'react-loading-indicators';
 import WhyChooseBillWise from '../Components/WhyChooseBillWise';
+import WhatOurUsersSay from '../Components/WhatOurUsersSay';
 
 const HomePage = () => {
     const recentBillsData = useLoaderData();
@@ -33,6 +34,7 @@ const HomePage = () => {
             <CategorySection />
             <RecentBills recentBillsData={recentBillsData} />
             <WhyChooseBillWise></WhyChooseBillWise>
+            <WhatOurUsersSay></WhatOurUsersSay>
         </div>
     );
 };
