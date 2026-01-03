@@ -6,6 +6,7 @@ import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import app from "../AuthProvider/firebase.config";
 import googleIcon from "../assets/google.png";
 import { toast } from 'react-hot-toast';
+import { LogIn, ShieldCheck, User } from "lucide-react";
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -102,11 +103,60 @@ const LoginPage = () => {
         }
     };
 
+    // Quick Login Handler
+    const handleQuickLogin = async (email, password) => {
+        setFormData({ email, password });
+        try {
+            const result = await signIn(email, password);
+            const user = result.user;
+            const token = await user.getIdToken();
+
+            const response = await fetch(`http://localhost:5000/user-profile`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            const dbUser = await response.json();
+
+            if (dbUser?.status === "blocked") {
+                await auth.signOut();
+                return toast.error("Your account is blocked. Access denied. 🚫");
+            }
+
+            const displayName = user.displayName || user.email?.split('@')[0] || 'User';
+            toast.success(`Welcome ${displayName}! ✅`);
+            navigate(from, { replace: true });
+        } catch (err) {
+            toast.error("Quick login failed.");
+        }
+    };
+
     return (
         <div className="w-full min-h-screen flex justify-center items-center bg-blue-50 px-4">
             <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-[0_4px_12px_rgba(59,130,246,0.15)]">
 
                 <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">Login</h2>
+
+                {/* Quick Login Section */}
+                <div className="mb-6 p-4 border border-dashed border-green-500 rounded-lg bg-green-50">
+                    <p className="text-xs font-bold text-green-700 uppercase mb-3 text-center tracking-wider">
+                        Quick Login
+                    </p>
+                    <div className="grid grid-cols-2 gap-3">
+                        <button
+                            type="button"
+                            onClick={() => handleQuickLogin("admin@gmail.com", "Admin123")}
+                            className="flex items-center justify-center gap-2 bg-gray-900 text-white py-2 px-1 text-xs font-semibold rounded hover:bg-black transition-all"
+                        >
+                            <ShieldCheck size={14} /> Admin Account
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => handleQuickLogin("auntor@gmail.com", "Auntor123")}
+                            className="flex items-center justify-center gap-2 bg-green-600 text-white py-2 px-1 text-xs font-semibold rounded hover:bg-green-700 transition-all"
+                        >
+                            <User size={14} /> User Account
+                        </button>
+                    </div>
+                </div>
 
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>
