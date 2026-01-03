@@ -202,7 +202,7 @@ const MyProfilePage = () => {
                 </div>
 
                 {/* Details & Stats */}
-                <div className="lg:col-span-8 space-y-8">
+                <div className="lg:col-span-8 space-y-5 h-fit">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="bg-gradient-to-br from-blue-600 to-blue-700 p-8 rounded-3xl text-white shadow-lg">
                             <p className="text-blue-100 font-medium">Total Bills Paid</p>
