@@ -18,7 +18,7 @@ const BillDetails = ({ bill }) => {
 
         async function checkPaid() {
             try {
-                const res = await fetch(`https://bill-wise-server.vercel.app/my-bills?email=${user.email}`);
+                const res = await fetch(`http://localhost:5000/my-bills?email=${user.email}`);
                 const data = await res.json();
                 if (data.some(b => b.billId === bill._id)) setAlreadyPaid(true);
             } catch (err) {
@@ -62,7 +62,7 @@ const BillDetails = ({ bill }) => {
         };
 
         try {
-            const res = await fetch("https://bill-wise-server.vercel.app/add-my-bill", {
+            const res = await fetch("http://localhost:5000/add-my-bill", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
@@ -88,190 +88,136 @@ const BillDetails = ({ bill }) => {
     };
 
     return (
-        <div className="w-11/12 mx-auto bg-white shadow-lg rounded-2xl p-6 mt-0">
+        <div className="w-11/12 mx-auto bg-white shadow-2xl rounded-3xl p-6 md:p-10 mt-6 border border-gray-100">
+            {/* Top Section: Photo and Stats */}
+            <div className="flex flex-col md:flex-row gap-10 items-stretch">
 
-            {/* Two-column layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-
-                <div className="w-full h-[320px] md:h-[550px] rounded-xl overflow-hidden">
+                {/* LEFT: Photo */}
+                <div className="w-full md:w-1/2 aspect-square rounded-2xl overflow-hidden shadow-md border border-gray-100">
                     <img
                         src={bill.image || "/default-bill.jpg"}
                         alt="Bill"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain bg-gray-50 transform hover:scale-105 transition duration-500"
                     />
                 </div>
 
+                {/* RIGHT: Stats and Action Button */}
+                <div className="w-full md:w-1/2 flex flex-col">
+                    <h1 className="text-4xl font-extrabold text-gray-900 mb-6 pb-4">
+                        {bill.title}
+                    </h1>
 
+                    <div className="space-y-4 flex-grow">
+                        <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl border border-blue-100">
+                            <span className="font-bold text-blue-700 min-w-[100px]">Category :</span>
+                            <span className="px-3 py-1 bg-blue-600 text-white text-sm font-bold rounded-full uppercase tracking-wider">
+                                {bill.category}
+                            </span>
+                        </div>
 
-                {/* RIGHT: Content */}
-                <div>
-                    <h1 className="text-3xl font-bold text-blue-700 mb-4">{bill.title}</h1>
+                        <div className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition border-b border-gray-100">
+                            <span className="font-bold text-gray-600 min-w-[100px]">Location :</span>
+                            <span className="text-gray-800 font-medium">{bill.location}</span>
+                        </div>
 
-                    <div className="space-y-2 text-gray-700 text-lg">
-                        <p><strong>Category:</strong> {bill.category}</p>
-                        <p><strong>Location:</strong> {bill.location}</p>
-                        <p><strong>Amount:</strong> {bill.amount} BDT</p>
-                        <p><strong>Date:</strong> {bill.date}</p>
+                        <div className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition border-b border-gray-100">
+                            <span className="font-bold text-gray-600 min-w-[100px]">Amount :</span>
+                            <span className="text-2xl font-black text-blue-600">{bill.amount} <small className="text-sm font-bold text-gray-500">BDT</small></span>
+                        </div>
+
+                        <div className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl transition border-b border-gray-100">
+                            <span className="font-bold text-gray-600 min-w-[100px]">Bill Date :</span>
+                            <span className="text-gray-800 font-medium">{bill.date}</span>
+                        </div>
                     </div>
 
-                    <p className="mt-6 text-gray-500 text-md leading-relaxed text-justify">
-                        {bill.description || "No description available."}
-                    </p>
-
-
-                    <button
-                        disabled={!isCurrentMonth || alreadyPaid}
-                        onClick={() => setIsModalOpen(true)}
-                        className={`mt-8 w-full py-3 rounded-lg font-semibold text-white 
-                            ${isCurrentMonth && !alreadyPaid
-                                ? "bg-blue-600 hover:bg-blue-700"
-                                : "bg-gray-400 cursor-not-allowed"
-                            }`}
-                    >
-                        {alreadyPaid
-                            ? "Bill Already Paid"
-                            : isCurrentMonth
-                                ? "Pay Bill"
-                                : "You can only pay current month bills"}
-                    </button>
+                    {/* Action Button */}
+                    <div className="mt-10">
+                        <button
+                            disabled={!isCurrentMonth || alreadyPaid}
+                            onClick={() => setIsModalOpen(true)}
+                            className={`w-full py-4 rounded-2xl font-bold text-lg text-white transition-all duration-300 shadow-lg 
+                                ${isCurrentMonth && !alreadyPaid
+                                    ? "bg-blue-600 hover:bg-blue-700 hover:shadow-blue-200"
+                                    : "bg-gray-400 cursor-not-allowed"
+                                }`}
+                        >
+                            {alreadyPaid
+                                ? "Bill Already Paid"
+                                : isCurrentMonth
+                                    ? "Pay Bill"
+                                    : "You can only pay current month bills"}
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            {/* Modal */}
+            {/* Bottom Section: Description */}
+            <div className="mt-12 pt-8 border-t-2 border-blue-100">
+                <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    Description
+                </h3>
+                <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <p className="text-gray-600 text-lg leading-relaxed whitespace-pre-line text-justify">
+                        {bill.description || "No description available."}
+                    </p>
+                </div>
+            </div>
+
+            {/* Modal Logic */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/40 backdrop-blur-sm">
-                    <div className="bg-blue-50 rounded-2xl shadow-xl p-6 w-11/12 max-w-2xl relative border border-blue-200">
-
-                        <h2 className="text-2xl font-bold text-blue-700 mb-5 text-center">Pay Bill</h2>
-
+                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/50 backdrop-blur-sm px-4">
+                    <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-2xl relative border border-blue-100 animate-in zoom-in duration-200">
+                        <h2 className="text-3xl font-black text-blue-700 mb-6 text-center">Complete Payment</h2>
                         <button
                             onClick={() => setIsModalOpen(false)}
-                            className="absolute top-4 right-4 text-blue-600 hover:text-blue-800 font-bold text-2xl"
+                            className="absolute top-6 right-6 text-gray-400 hover:text-blue-700 transition-colors text-3xl"
                         >
                             &times;
                         </button>
 
-                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Email</label>
-                                <input
-                                    type="email"
-                                    value={user?.email || ""}
-                                    readOnly
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                />
+                        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Email</label>
+                                <input type="email" value={user?.email || ""} readOnly className="px-4 py-3 border border-gray-200 rounded-xl bg-blue-50 text-gray-500 w-full outline-none" />
                             </div>
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Bill ID</label>
-                                <input
-                                    type="text"
-                                    value={bill._id}
-                                    readOnly
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                />
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Bill ID</label>
+                                <input type="text" value={bill._id} readOnly className="px-4 py-3 border border-gray-200 rounded-xl bg-blue-50 text-gray-500 w-full outline-none" />
                             </div>
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Amount</label>
-                                <input
-                                    type="text"
-                                    value={bill.amount}
-                                    readOnly
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                />
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Amount</label>
+                                <input type="text" value={`${bill.amount} BDT`} readOnly className="px-4 py-3 border border-gray-200 rounded-xl bg-blue-50 text-blue-700 font-bold w-full outline-none" />
                             </div>
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Username</label>
-                                <input
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    placeholder="Your Name"
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                    required
-                                />
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Username</label>
+                                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter name" className="px-4 py-3 border border-gray-200 rounded-xl w-full focus:ring-2 focus:ring-blue-600 outline-none transition" required />
                             </div>
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Address</label>
-                                <input
-                                    type="text"
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
-                                    placeholder="Your Address"
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                    required
-                                />
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Address</label>
+                                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter address" className="px-4 py-3 border border-gray-200 rounded-xl w-full focus:ring-2 focus:ring-blue-600 outline-none transition" required />
                             </div>
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Phone</label>
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Phone</label>
                                 <div className="flex items-center gap-2">
-                                    <span className="px-3 py-2 bg-blue-100 border border-blue-300 rounded-lg text-blue-700 font-medium">+88</span>
-                                    <input
-                                        type="text"
-                                        value={phone}
-                                        onChange={(e) => {
-                                            const val = e.target.value.replace(/\D/g, "");
-                                            if (val.length <= 11) setPhone(val);
-                                        }}
-                                        placeholder="11-digit number"
-                                        className="px-4 py-2 border border-blue-300 rounded-lg w-full
-                                       focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                        required
-                                    />
+                                    <span className="px-3 py-3 bg-gray-100 border border-gray-200 rounded-xl text-gray-600 font-bold text-sm">+88</span>
+                                    <input type="text" value={phone} onChange={(e) => { const val = e.target.value.replace(/\D/g, ""); if (val.length <= 11) setPhone(val); }} placeholder="11 digits" className="px-4 py-3 border border-gray-200 rounded-xl w-full focus:ring-2 focus:ring-blue-600 outline-none transition" required />
                                 </div>
-                                <p className="text-xs text-gray-500 mt-1">Enter 11 digits after +88</p>
                             </div>
-
-                            <div className="col-span-1">
-                                <label className="text-sm font-semibold text-blue-700">Date</label>
-                                <input
-                                    type="text"
-                                    value={new Date().toLocaleDateString()}
-                                    readOnly
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg bg-blue-100 text-gray-700 w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                />
+                            <div className="md:col-span-2 space-y-1">
+                                <label className="text-xs font-bold uppercase text-blue-600 ml-1">Additional Info</label>
+                                <textarea rows="2" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} placeholder="Optional notes..." className="px-4 py-3 border border-gray-200 rounded-xl w-full focus:ring-2 focus:ring-blue-600 outline-none transition resize-none"></textarea>
                             </div>
-
-                            <div className="col-span-1 md:col-span-2">
-                                <label className="text-sm font-semibold text-blue-700">Additional Info</label>
-                                <textarea
-                                    value={additionalInfo}
-                                    onChange={(e) => setAdditionalInfo(e.target.value)}
-                                    placeholder="Optional notes..."
-                                    className="mt-1 px-4 py-2 border border-blue-300 rounded-lg w-full
-                                   focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
-                                ></textarea>
-                            </div>
-
-                            <div className="col-span-1 md:col-span-2 mt-2">
-                                <button
-                                    type="submit"
-                                    disabled={submitting}
-                                    className={`w-full py-3 rounded-lg font-semibold text-white transition 
-                            ${submitting ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"}`}
-                                >
-                                    {submitting ? "Submitting..." : "Submit Payment"}
-                                </button>
-                            </div>
-
+                            <button type="submit" disabled={submitting} className={`md:col-span-2 py-4 mt-2 rounded-2xl font-bold text-white text-lg transition shadow-lg ${submitting ? "bg-blue-300" : "bg-blue-600 hover:bg-blue-700"}`}>
+                                {submitting ? "Submitting..." : "Submit Payment"}
+                            </button>
                         </form>
                     </div>
                 </div>
             )}
-
         </div>
     );
+
 };
 
 export default BillDetails;

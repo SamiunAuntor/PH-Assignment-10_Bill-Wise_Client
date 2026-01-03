@@ -23,7 +23,7 @@ const BillDetailsPage = () => {
     }
 
     return (
-        <div className="bg-blue-50 min-h-screen py-12">
+        <div className="bg-blue-50 min-h-screen pt-4 pb-12">
             <BillDetails bill={bill} />
         </div>
     );

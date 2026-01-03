@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Import Roboto from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+/* Apply to every single element in the project */
+* {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

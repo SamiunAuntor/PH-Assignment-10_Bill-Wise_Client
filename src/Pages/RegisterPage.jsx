@@ -28,46 +28,53 @@ const SignUp = () => {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
-        setErrorMessage("");
-
         const name = e.target.name.value;
         const email = e.target.email.value;
         const photo = e.target.photo.value;
         const password = e.target.password.value;
 
         const passwordError = validatePassword(password);
-        if (passwordError) {
-            setErrorMessage(passwordError);
-            toast.error(passwordError);
-            return;
-        }
+        if (passwordError) return toast.error(passwordError);
 
         try {
+            // STEP 1 : Check if the email is already blocked in our DB
+            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${email}`);
+            const statusData = await checkRes.json();
+
+            if (statusData?.status === "blocked") {
+                toast.error("This email is blocked and cannot be used for registration. 🚫");
+                return;
+            }
+
+            // STEP 2 : Firebase Registration
             const result = await signUp(email, password);
-            const user = result.user;
-            await updateProfile(user, { displayName: name, photoURL: photo });
-            toast.success(`Welcome ${name}! ✅`);
-            e.target.reset();
-            await new Promise(resolve => setTimeout(resolve, 100));
-            navigate("/");
-            // window.location.reload();
+            await updateProfile(result.user, { displayName: name, photoURL: photo });
+
+            // STEP 3: Save User to DB
+            const userInfo = {
+                name, email, photo,
+                role: "user",
+                status: "active",
+                createdAt: new Date(),
+                lastUpdatedAt: null
+            };
+
+            const saveRes = await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(userInfo)
+            });
+
+            const data = await saveRes.json();
+
+            if (data.insertedId || data._id) {
+                toast.success(`Welcome to BillWise, ${name}! ✅`);
+                navigate("/");
+            }
 
         } catch (err) {
-            let message;
-            switch (err.code) {
-                case "auth/email-already-in-use":
-                    message = "This email is already registered. Try logging in instead.";
-                    break;
-                case "auth/invalid-email":
-                    message = "Please enter a valid email address.";
-                    break;
-                case "auth/weak-password":
-                    message = "Password is too weak. It must be at least 6 characters.";
-                    break;
-                default:
-                    message = "Signup failed. Please try again.";
-            }
-            setErrorMessage(message);
+            let message = "Registration failed.";
+            if (err.code === "auth/email-already-in-use") message = "Email already registered.";
             toast.error(message);
         }
     };
@@ -76,20 +83,42 @@ const SignUp = () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
-            const displayName = user.displayName || user.email?.split('@')[0] || 'User';
-            toast.success(`Welcome ${displayName}! ✅`);
-            await new Promise(resolve => setTimeout(resolve, 100));
-            navigate(from, { replace: true });
-        } catch (err) {
-            let message;
-            switch (err.code) {
-                case "auth/popup-closed-by-user":
-                    message = "Google signup was cancelled.";
-                    break;
-                default:
-                    message = "Google signup failed. Please try again.";
+
+            // STEP 1 : Check status in DB immediately after popup
+            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${user.email}`);
+            const statusData = await checkRes.json();
+
+            if (statusData?.status === "blocked") {
+                await auth.signOut(); // Kick them out of Firebase session
+                toast.error("This account is blocked and cannot access the system. 🚫");
+                return;
             }
-            toast.error(message);
+
+            // STEP 2 : Sync with DB (Ensure user exists in MongoDB)
+            const userInfo = {
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+                role: "user",
+                status: "active",
+                createdAt: new Date(),
+                lastUpdatedAt: null
+            };
+
+            const res = await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(userInfo)
+            });
+
+            await res.json(); // Finalize DB sync
+
+            toast.success(`Successfully logged in as ${user.displayName}! ✅`);
+            navigate(from, { replace: true });
+
+        } catch (err) {
+            console.error(err);
+            toast.error("Google authentication failed. Please try again.");
         }
     };
 

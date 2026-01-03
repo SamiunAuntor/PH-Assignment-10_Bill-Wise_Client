@@ -25,7 +25,7 @@ const AboutPage = () => {
         <div className="min-h-screen bg-blue-50 p-6 md:p-12">
             {/* Header */}
             <h1 className="text-4xl md:text-5xl font-bold text-blue-700 text-center mb-8">
-                About Utility Bill Management System
+                About BillWise
             </h1>
 
             {/* Project Description */}

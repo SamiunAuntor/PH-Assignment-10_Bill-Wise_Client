@@ -84,7 +84,7 @@ const MyPayBillsPage = () => {
 
         try {
             const token = await user.getIdToken();
-            const res = await fetch("https://bill-wise-server.vercel.app/my-bills", {
+            const res = await fetch("http://localhost:5000/my-bills", {
                 headers: { Authorization: `Bearer ${token}` },
             });
 
@@ -126,7 +126,7 @@ const MyPayBillsPage = () => {
         try {
             const token = await user.getIdToken();
 
-            await fetch(`https://bill-wise-server.vercel.app/update-my-bill/${selectedBill._id}`, {
+            await fetch(`http://localhost:5000/update-my-bill/${selectedBill._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -160,7 +160,7 @@ const MyPayBillsPage = () => {
                 try {
                     const token = await user.getIdToken();
 
-                    await fetch(`https://bill-wise-server.vercel.app/delete-my-bill/${bill._id}`, {
+                    await fetch(`http://localhost:5000/delete-my-bill/${bill._id}`, {
                         method: "DELETE",
                         headers: { Authorization: `Bearer ${token}` },
                     });

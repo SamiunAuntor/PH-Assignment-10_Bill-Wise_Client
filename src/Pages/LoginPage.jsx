@@ -22,57 +22,79 @@ const LoginPage = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Email-Password Login Handler
     const handleLogin = async (e) => {
         e.preventDefault();
         const { email, password } = formData;
 
         try {
+            // STEP 1 : Check status in DB first
+            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${email}`);
+            const statusData = await checkRes.json();
+
+            if (statusData?.status === "blocked") {
+                toast.error("Access Denied! Your account has been blocked. 🚫");
+                return; // Stop the function here
+            }
+
+            // STEP 2 : Proceed with Firebase Login
             const result = await signIn(email, password);
             const user = result.user;
+
             const displayName = user.displayName || user.email?.split('@')[0] || 'User';
-            toast.success(`Welcome ${displayName}! ✅`);
-            await new Promise(resolve => setTimeout(resolve, 100));
+            toast.success(`Welcome back, ${displayName}! ✅`);
             navigate(from, { replace: true });
 
         } catch (err) {
-            // Use friendly error messages
-            let message;
-            switch (err.code) {
-                case "auth/invalid-email":
-                    message = "Please enter a valid email address.";
-                    break;
-                case "auth/user-not-found":
-                    message = "No account found with this email.";
-                    break;
-                case "auth/wrong-password":
-                    message = "Incorrect password. Please try again.";
-                    break;
-                default:
-                    message = "Login failed. Please try again.";
-            }
+            console.error(err);
+            let message = "Invalid email or password.";
+            if (err.code === "auth/user-not-found") message = "No account found with this email.";
             toast.error(message);
         }
     };
 
+
+    // Google Login Handler
     const handleGoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
-            const displayName = user.displayName || user.email?.split('@')[0] || 'User';
-            toast.success(`Welcome ${displayName}! ✅`);
-            await new Promise(resolve => setTimeout(resolve, 100));
-            navigate(from, { replace: true });
-            
-        } catch (err) {
-            let message;
-            switch (err.code) {
-                case "auth/popup-closed-by-user":
-                    message = "Google login was cancelled.";
-                    break;
-                default:
-                    message = "Google login failed. Please try again.";
+
+            // STEP 1 : Check status in DB immediately after popup
+            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${user.email}`);
+            const statusData = await checkRes.json();
+
+            if (statusData?.status === "blocked") {
+                await auth.signOut(); // Kick them out of Firebase session
+                toast.error("This account is blocked and cannot access the system. 🚫");
+                return;
             }
-            toast.error(message);
+
+            // STEP 2 : Sync with DB (Ensure user exists in MongoDB)
+            const userInfo = {
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+                role: "user",
+                status: "active",
+                createdAt: new Date(),
+                lastUpdatedAt: null
+            };
+
+            const res = await fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(userInfo)
+            });
+
+            await res.json(); // Finalize DB sync
+
+            toast.success(`Successfully logged in as ${user.displayName}! ✅`);
+            navigate(from, { replace: true });
+
+        } catch (err) {
+            console.error(err);
+            toast.error("Google authentication failed. Please try again.");
         }
     };
 

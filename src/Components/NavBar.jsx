@@ -118,7 +118,7 @@ const NavBar = () => {
                             <img
                                 src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
                                 alt="profile"
-                                className="h-10 w-10 rounded-full object-cover"
+                                className="h-10 w-10 rounded-full object-cover ring-1 ring-blue-50 ring-offset-2 mx-auto"
                             />
 
                             <button
