@@ -7,7 +7,7 @@ import { getAuth } from "firebase/auth";
 
 const MyProfilePage = () => {
     const { user, updateUserProfile } = useContext(AuthContext);
-    const auth = getAuth(); // Access the real Firebase instance
+    const auth = getAuth();
 
     const [dbUser, setDbUser] = useState(null);
     const [bills, setBills] = useState([]);
@@ -127,11 +127,11 @@ const MyProfilePage = () => {
     const isBlocked = dbUser?.status?.toLowerCase() === "blocked";
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12 px-4">
+        <div className="min-h-screen bg-blue-50 py-12">
 
-            {/* Centered Page Title */}
-            <div className="w-full text-center mb-12">
-                <h1 className="text-4xl font-black text-blue-600">
+            {/* Title aligned to the left within the 11/12 width container */}
+            <div className="w-11/12 mx-auto">
+                <h1 className="text-3xl text-blue-600 font-bold mb-10 text-left">
                     My Profile
                 </h1>
             </div>

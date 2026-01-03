@@ -18,7 +18,7 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="w-full bg-white shadow-[0_2px_10px_rgba(59,130,246,0.15)]">
+        <nav className="sticky top-0 z-50 w-full bg-white shadow-[0_2px_10px_rgba(59,130,246,0.15)]">
             <div className="w-11/12 mx-auto flex justify-between items-center py-3">
 
                 {/* Logo */}
@@ -53,15 +53,7 @@ const NavBar = () => {
                         Bills
                     </NavLink>
 
-                    {/* About - Public Route */}
-                    <NavLink
-                        to="/about"
-                        className={({ isActive }) =>
-                            `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
-                        }
-                    >
-                        About
-                    </NavLink>
+
 
                     {/* Only logged in */}
                     {user && (
@@ -86,6 +78,36 @@ const NavBar = () => {
                             </NavLink>
                         </>
                     )}
+
+                    {/* About - Public Route */}
+                    <NavLink
+                        to="/about"
+                        className={({ isActive }) =>
+                            `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
+                        }
+                    >
+                        About
+                    </NavLink>
+
+                    {/* Privacy Policy - Public Route */}
+                    <NavLink
+                        to="/privacy-policy"
+                        className={({ isActive }) =>
+                            `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
+                        }
+                    >
+                        Privacy Policy
+                    </NavLink>
+
+                    {/* Contact Us - Public Route */}
+                    <NavLink
+                        to="/contact-us"
+                        className={({ isActive }) =>
+                            `hover:text-blue-600 transition ${isActive ? "text-blue-600 font-semibold" : ""}`
+                        }
+                    >
+                        Contact Us
+                    </NavLink>
 
                     {/* Not logged in → Login + Register */}
                     {!user && (
@@ -152,14 +174,7 @@ const NavBar = () => {
                         Bills
                     </NavLink>
 
-                    {/* About */}
-                    <NavLink
-                        to="/about"
-                        onClick={() => setOpen(false)}
-                        className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
-                    >
-                        About
-                    </NavLink>
+
 
                     {user && (
                         <>
@@ -201,6 +216,33 @@ const NavBar = () => {
                             </NavLink>
                         </>
                     )}
+
+                    {/* About */}
+                    <NavLink
+                        to="/about"
+                        onClick={() => setOpen(false)}
+                        className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
+                    >
+                        About
+                    </NavLink>
+
+                    {/* Privacy Policy */}
+                    <NavLink
+                        to="/privacy-policy"
+                        onClick={() => setOpen(false)}
+                        className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
+                    >
+                        Privicy Policy
+                    </NavLink>
+
+                    {/* Contact Us */}
+                    <NavLink
+                        to="/contact-us"
+                        onClick={() => setOpen(false)}
+                        className="w-full py-2 border-b border-gray-200 text-center hover:text-blue-600"
+                    >
+                        Contact Us
+                    </NavLink>
 
                     {user && (
                         <div className="w-full flex flex-col items-center mt-3">

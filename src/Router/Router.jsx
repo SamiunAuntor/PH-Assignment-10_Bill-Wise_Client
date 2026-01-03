@@ -10,6 +10,8 @@ import BillDetailsPage from "../Pages/BillDetailsPage";
 import MyPayBillsPage from "../Pages/MyPayBillsPage";
 import AboutPage from "../Pages/AboutPage";
 import MyProfilePage from "../Pages/MyProfilePage";
+import ContactUsPage from "../Pages/ContactUsPage";
+import PrivicyPolicyPage from "../Pages/PrivicyPolicyPage";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +74,14 @@ const router = createBrowserRouter([
                     </PrivateRoute>
                 ),
             },
+            {
+                path: "/contact-us",
+                element: <ContactUsPage></ContactUsPage>
+            },
+            {
+                path: "/privacy-policy",
+                element: <PrivicyPolicyPage></PrivicyPolicyPage>
+            }
         ],
     },
     {

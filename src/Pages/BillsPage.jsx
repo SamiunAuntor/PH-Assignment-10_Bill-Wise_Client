@@ -59,7 +59,7 @@ const BillsPage = () => {
             <div className="w-11/12 mx-auto">
 
                 {/* page title */}
-                <h2 className="text-3xl md:text-4xl font-bold text-blue-600 text-center mb-8">
+                <h2 className="text-3xl md:text-3xl font-bold text-blue-600 mb-10">
                     All Bills
                 </h2>
 
