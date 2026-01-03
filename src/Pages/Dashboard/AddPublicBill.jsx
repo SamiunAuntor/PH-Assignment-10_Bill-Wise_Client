@@ -43,7 +43,7 @@ const AddPublicBill = () => {
         setLoading(true);
         try {
             const token = await user.getIdToken();
-            const res = await fetch('http://localhost:5000/admin/add-public-bill', {
+            const res = await fetch('https://bill-wise-server.vercel.app/admin/add-public-bill', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

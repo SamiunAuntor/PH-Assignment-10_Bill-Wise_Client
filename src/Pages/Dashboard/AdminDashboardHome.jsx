@@ -26,10 +26,10 @@ const AdminDashboardHome = () => {
         try {
             const token = await user.getIdToken();
             const [statsRes, billsRes] = await Promise.all([
-                fetch('http://localhost:5000/admin/stats', {
+                fetch('https://bill-wise-server.vercel.app/admin/stats', {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                fetch('http://localhost:5000/admin/recent-bills', {
+                fetch('https://bill-wise-server.vercel.app/admin/recent-bills', {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);

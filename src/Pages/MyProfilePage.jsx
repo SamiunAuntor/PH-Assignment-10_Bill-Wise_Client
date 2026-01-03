@@ -41,10 +41,10 @@ const MyProfilePage = () => {
                 const token = await currentUser.getIdToken(true);
 
                 const [billsRes, userRes] = await Promise.all([
-                    fetch(`http://localhost:5000/my-bills`, {
+                    fetch(`https://bill-wise-server.vercel.app/my-bills`, {
                         headers: { Authorization: `Bearer ${token}` },
                     }),
-                    fetch(`http://localhost:5000/user-profile`, {
+                    fetch(`https://bill-wise-server.vercel.app/user-profile`, {
                         headers: { Authorization: `Bearer ${token}` },
                     })
                 ]);
@@ -85,7 +85,7 @@ const MyProfilePage = () => {
             const token = await currentUser.getIdToken(true);
 
             // 3. Update MongoDB
-            const response = await fetch('http://localhost:5000/users/update', {
+            const response = await fetch('https://bill-wise-server.vercel.app/users/update', {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

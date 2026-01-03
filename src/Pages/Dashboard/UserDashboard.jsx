@@ -43,10 +43,10 @@ const UserDashboard = () => {
         try {
             const token = await user.getIdToken();
             const [billsRes, userRes] = await Promise.all([
-                fetch('http://localhost:5000/my-bills', {
+                fetch('https://bill-wise-server.vercel.app/my-bills', {
                     headers: { Authorization: `Bearer ${token}` }
                 }),
-                fetch('http://localhost:5000/user-profile', {
+                fetch('https://bill-wise-server.vercel.app/user-profile', {
                     headers: { Authorization: `Bearer ${token}` }
                 })
             ]);

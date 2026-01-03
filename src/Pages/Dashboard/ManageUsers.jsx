@@ -30,7 +30,7 @@ const ManageUsers = () => {
 
         try {
             const token = await user.getIdToken();
-            const res = await fetch('http://localhost:5000/admin/all-users', {
+            const res = await fetch('https://bill-wise-server.vercel.app/admin/all-users', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -72,7 +72,7 @@ const ManageUsers = () => {
     const handleStatusChange = async (userId, newStatus) => {
         try {
             const token = await user.getIdToken();
-            const res = await fetch(`http://localhost:5000/admin/update-user-status/${userId}`, {
+            const res = await fetch(`https://bill-wise-server.vercel.app/admin/update-user-status/${userId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

@@ -34,7 +34,7 @@ const LoginPage = () => {
 
         try {
             // STEP 1 : Check status in DB first
-            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${email}`);
+            const checkRes = await fetch(`https://bill-wise-server.vercel.app/users/check-status?email=${email}`);
             const statusData = await checkRes.json();
 
             if (statusData?.status === "blocked") {
@@ -66,7 +66,7 @@ const LoginPage = () => {
             const user = result.user;
 
             // STEP 1 : Check status in DB immediately after popup
-            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${user.email}`);
+            const checkRes = await fetch(`https://bill-wise-server.vercel.app/users/check-status?email=${user.email}`);
             const statusData = await checkRes.json();
 
             if (statusData?.status === "blocked") {
@@ -86,7 +86,7 @@ const LoginPage = () => {
                 lastUpdatedAt: null
             };
 
-            const res = await fetch('http://localhost:5000/users', {
+            const res = await fetch('https://bill-wise-server.vercel.app/users', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(userInfo)
@@ -111,7 +111,7 @@ const LoginPage = () => {
             const user = result.user;
             const token = await user.getIdToken();
 
-            const response = await fetch(`http://localhost:5000/user-profile`, {
+            const response = await fetch(`https://bill-wise-server.vercel.app/user-profile`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const dbUser = await response.json();

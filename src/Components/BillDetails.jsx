@@ -18,7 +18,7 @@ const BillDetails = ({ bill }) => {
 
         async function checkPaid() {
             try {
-                const res = await fetch(`http://localhost:5000/my-bills?email=${user.email}`);
+                const res = await fetch(`https://bill-wise-server.vercel.app/my-bills?email=${user.email}`);
                 const data = await res.json();
                 if (data.some(b => b.billId === bill._id)) setAlreadyPaid(true);
             } catch (err) {
@@ -62,7 +62,7 @@ const BillDetails = ({ bill }) => {
         };
 
         try {
-            const res = await fetch("http://localhost:5000/add-my-bill", {
+            const res = await fetch("https://bill-wise-server.vercel.app/add-my-bill", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),

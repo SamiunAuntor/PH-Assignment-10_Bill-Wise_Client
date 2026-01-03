@@ -51,7 +51,7 @@ const ManageAllBills = () => {
 
         try {
             const token = await user.getIdToken();
-            const res = await fetch('http://localhost:5000/admin/all-bills', {
+            const res = await fetch('https://bill-wise-server.vercel.app/admin/all-bills', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -139,7 +139,7 @@ const ManageAllBills = () => {
 
         try {
             const token = await user.getIdToken();
-            const res = await fetch(`http://localhost:5000/admin/update-bill/${selectedBill._id}`, {
+            const res = await fetch(`https://bill-wise-server.vercel.app/admin/update-bill/${selectedBill._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ const ManageAllBills = () => {
             if (result.isConfirmed) {
                 try {
                     const token = await user.getIdToken();
-                    const res = await fetch(`http://localhost:5000/admin/delete-bill/${bill._id}`, {
+                    const res = await fetch(`https://bill-wise-server.vercel.app/admin/delete-bill/${bill._id}`, {
                         method: 'DELETE',
                         headers: { Authorization: `Bearer ${token}` }
                     });
@@ -201,7 +201,7 @@ const ManageAllBills = () => {
 
         try {
             const token = await user.getIdToken();
-            const res = await fetch('http://localhost:5000/admin/add-public-bill', {
+            const res = await fetch('https://bill-wise-server.vercel.app/admin/add-public-bill', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

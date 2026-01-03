@@ -38,7 +38,7 @@ const DashboardLayout = () => {
             if (!user) return;
             try {
                 const token = await user.getIdToken();
-                const res = await fetch('http://localhost:5000/user-profile', {
+                const res = await fetch('https://bill-wise-server.vercel.app/user-profile', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = await res.json();

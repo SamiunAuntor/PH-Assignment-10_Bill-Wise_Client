@@ -42,7 +42,7 @@ const SignUp = () => {
 
         try {
             // STEP 1 : Check if the email is already blocked in our DB
-            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${email}`);
+            const checkRes = await fetch(`https://bill-wise-server.vercel.app/users/check-status?email=${email}`);
             const statusData = await checkRes.json();
 
             if (statusData?.status === "blocked") {
@@ -63,7 +63,7 @@ const SignUp = () => {
                 lastUpdatedAt: null
             };
 
-            const saveRes = await fetch('http://localhost:5000/users', {
+            const saveRes = await fetch('https://bill-wise-server.vercel.app/users', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(userInfo)
@@ -89,7 +89,7 @@ const SignUp = () => {
             const user = result.user;
 
             // STEP 1 : Check status in DB immediately after popup
-            const checkRes = await fetch(`http://localhost:5000/users/check-status?email=${user.email}`);
+            const checkRes = await fetch(`https://bill-wise-server.vercel.app/users/check-status?email=${user.email}`);
             const statusData = await checkRes.json();
 
             if (statusData?.status === "blocked") {
@@ -109,7 +109,7 @@ const SignUp = () => {
                 lastUpdatedAt: null
             };
 
-            const res = await fetch('http://localhost:5000/users', {
+            const res = await fetch('https://bill-wise-server.vercel.app/users', {
                 method: 'POST',
                 headers: { 'content-type': 'application/json' },
                 body: JSON.stringify(userInfo)
