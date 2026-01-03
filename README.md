@@ -32,16 +32,19 @@ Bill Wise is a single-page application (SPA) for managing utility bills. Users c
 ## ✨ Features
 
 - **Authentication**: Secure login/register with email/password and Google OAuth
+- **Admin Dashboard**: Manage users, manage all bills, and view analytics
+- **User Dashboard**: Add public bills, view personal dashboard
 - **Bill Management**: View, pay, and update bills for Electricity, Gas, Water, Internet
-- **Dynamic Routing**: React Router for public/private routes
+- **Dynamic Routing**: React Router for public/private and admin routes
 - **PDF Report Download**: Export paid bills as PDF (jsPDF + jsPDF-AutoTable)
 - **Category Filtering**: Filter bills by category with backend query support
 - **Responsive UI**: Mobile, tablet, and desktop support
 - **Toast/SweetAlert**: Modern notifications for all actions
 - **Loading Spinner**: Shown during API calls
 - **Dark/Light Theme Toggle**: Switch themes on Home page
-- **Extra Pages**: Profile, About, 404 Not Found
-- **Animations**: Home page animations (Lottie/React Awesome Reveal)
+- **Extra Pages**: Profile, About, Contact Us, Privacy Policy, 404 Not Found
+- **Animations**: Home page animations (Lottie/React Awesome Reveal/Typewriter)
+- **Visualizations**: Charts and graphs using Recharts
 - **Axios Interceptors**: Secure API requests
 
 ## 🛠 Tech Stack
@@ -128,23 +131,37 @@ Bill-Wise-Client/
 │   │   ├── BillDetails.jsx    # Bill details card
 │   │   ├── CategoryCard.jsx   # Category card
 │   │   ├── CategorySection.jsx# Category section
+│   │   ├── FAQ.jsx            # FAQ section
 │   │   ├── Footer.jsx         # Footer
 │   │   ├── NavBar.jsx         # Navigation bar
 │   │   ├── WhatOurUsersSay.jsx# Extra section
 │   │   ├── WhyChooseBillWise.jsx # Extra section
 │   │   └── RecentBills/       # Recent bills components
-│   ├── Layouts/               # Main layout
+│   ├── Layouts/               # Layouts
+│   │   ├── MainLayout.jsx     # Main layout
+│   │   └── DashboardLayout.jsx# Dashboard layout
 │   ├── Pages/                 # Route pages
+│   │   ├── Dashboard/         # Dashboard pages
+│   │   │   ├── AddPublicBill.jsx
+│   │   │   ├── AdminDashboardHome.jsx
+│   │   │   ├── DashboardHome.jsx
+│   │   │   ├── ManageAllBills.jsx
+│   │   │   ├── ManageUsers.jsx
+│   │   │   └── UserDashboard.jsx
 │   │   ├── AboutPage.jsx      # About page
 │   │   ├── BillDetailsPage.jsx# Bill details page
 │   │   ├── BillsPage.jsx      # Bills listing
+│   │   ├── ContactUsPage.jsx  # Contact Us page
 │   │   ├── Error404Page.jsx   # 404 page
 │   │   ├── HomePage.jsx       # Home page
 │   │   ├── LoginPage.jsx      # Login page
 │   │   ├── MyPayBillsPage.jsx # User bills page
 │   │   ├── MyProfilePage.jsx  # Profile page
+│   │   ├── PrivicyPolicyPage.jsx # Privacy Policy page
 │   │   └── RegisterPage.jsx   # Register page
 │   ├── PrivateRoute/          # Private route logic
+│   │   ├── AdminRoute.jsx     # Admin route protection
+│   │   └── PrivateRoute.jsx   # User route protection
 │   ├── Router/                # Router config
 │   ├── App.jsx                # Main App
 │   ├── main.jsx               # Entry point
@@ -160,14 +177,17 @@ Bill-Wise-Client/
 ## 🎨 Key Features
 
 - **Secure Authentication**: Email/password & Google login
+- **Admin Dashboard**: Comprehensive admin controls and analytics
+- **User Dashboard**: Personal bill management and public bill submission
 - **Bill CRUD**: Add, view, update, delete bills
 - **Category Filtering**: Dynamic filter by bill type
 - **PDF Export**: Download paid bills as PDF
 - **Responsive Design**: Works on all devices
 - **Toast/SweetAlert**: Modern notifications
 - **Dark/Light Theme**: Toggle on Home page
-- **Extra Sections**: User testimonials, why choose Bill Wise
-- **Animations**: Engaging UI with Lottie/React Awesome Reveal
+- **Extra Sections**: User testimonials, FAQ, Privacy Policy, Contact Us
+- **Animations**: Engaging UI with Lottie, Typewriter, and Reveal effects
+- **Visualizations**: Interactive charts for data analysis
 - **404 Page**: Custom not found page
 - **Loading Spinner**: During API calls
 - **Axios Interceptors**: Secure API requests
@@ -218,12 +238,10 @@ Bill-Wise-Client/
 5. Open a Pull Request
 
 ## 🔮 Future Scope
-
 - Add payment gateway integration
 - Advanced analytics dashboard
 - Push notifications for bill reminders
 - Multi-language support
-- Admin dashboard for bill management
 - More utility categories
 
 ## 📝 Notes

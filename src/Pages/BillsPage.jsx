@@ -126,7 +126,7 @@ const BillsPage = () => {
                                 : "bg-white text-blue-600 border-blue-300 hover:bg-blue-50"
                                 }`}
                         >
-                            {showCurrentMonth ? "Showing Current Month Bills" : "Show Current Month Bills"}
+                            {showCurrentMonth ? "Showing Current Month Bills" : "Click To Show Current Month Bills"}
                         </button>
 
                         <div className="relative">

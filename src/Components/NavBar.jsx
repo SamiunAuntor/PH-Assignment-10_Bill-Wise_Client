@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
 import { Menu, X } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { toast } from "react-hot-toast";
+import { Tooltip } from "react-tooltip";
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
     const { user, logOut } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
@@ -137,11 +139,15 @@ const NavBar = () => {
                     {/* Logged in → Avatar + Logout */}
                     {user && (
                         <>
-                            <img
-                                src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
-                                alt="profile"
-                                className="h-10 w-10 rounded-full object-cover ring-1 ring-blue-50 ring-offset-2 mx-auto"
-                            />
+                            <Link to="/dashboard/home">
+                                <img
+                                    src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
+                                    alt="profile"
+                                    data-tooltip-id="dashboard-tooltip"
+                                    data-tooltip-content="Dashboard"
+                                    className="h-10 w-10 rounded-full object-cover ring-1 ring-blue-50 ring-offset-2 mx-auto cursor-pointer hover:ring-blue-300 transition-all"
+                                />
+                            </Link>
 
                             <button
                                 onClick={handleLogout}
@@ -246,10 +252,18 @@ const NavBar = () => {
 
                     {user && (
                         <div className="w-full flex flex-col items-center mt-3">
-                            <img
-                                src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
-                                className="h-12 w-12 rounded-full mb-2"
-                            />
+                            <Link 
+                                to="/dashboard/home"
+                                onClick={() => setOpen(false)}
+                                className="mb-2"
+                            >
+                                <img
+                                    src={user.photoURL || "https://i.ibb.co/2Fxq9YH/default.png"}
+                                    data-tooltip-id="dashboard-tooltip-mobile"
+                                    data-tooltip-content="Dashboard"
+                                    className="h-12 w-12 rounded-full cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all"
+                                />
+                            </Link>
 
                             <button
                                 onClick={() => { setOpen(false); handleLogout(); }}
@@ -261,6 +275,10 @@ const NavBar = () => {
                     )}
                 </ul>
             )}
+            
+            {/* Tooltips */}
+            <Tooltip id="dashboard-tooltip" />
+            <Tooltip id="dashboard-tooltip-mobile" />
         </nav>
     );
 };
