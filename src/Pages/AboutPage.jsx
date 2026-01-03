@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Database, ShieldCheck, FileText, Smartphone, Layout, Users, Zap, Search,
     Bell, Moon, RefreshCw, Layers, CreditCard, Code, Server, CheckCircle,
@@ -6,6 +6,11 @@ import {
 } from 'lucide-react';
 
 const AboutPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="min-h-screen bg-blue-50 w-full pb-20">
             <div className="w-11/12 mx-auto pt-12">

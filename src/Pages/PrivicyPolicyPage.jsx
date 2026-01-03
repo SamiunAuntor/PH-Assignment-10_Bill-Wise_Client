@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ShieldCheck, Lock, Key, FileDown, ShieldAlert, Database, EyeOff, Server, Globe, Zap, Users } from 'lucide-react';
 
 const PrivicyPolicyPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="min-h-screen bg-blue-50 w-full pb-20">
             <div className="w-11/12 mx-auto pt-12">

@@ -25,7 +25,7 @@ const users = [
 
 const WhatOurUsersSay = () => {
     return (
-        <div className="max-w-6xl mx-auto px-4 py-10">
+        <div className="w-11/12 mx-auto py-10">
             <h2 className="text-3xl text-blue-600 font-bold text-center mb-8">What Our Users Say</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {users.map((user, index) => (

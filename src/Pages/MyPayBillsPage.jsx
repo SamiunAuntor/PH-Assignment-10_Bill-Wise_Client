@@ -11,6 +11,11 @@ const MyPayBillsPage = () => {
     const [bills, setBills] = useState([]);
     const [loading, setLoading] = useState(true);
 
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // modal states
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [selectedBill, setSelectedBill] = useState(null);

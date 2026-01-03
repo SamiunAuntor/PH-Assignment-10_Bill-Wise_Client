@@ -8,6 +8,11 @@ const BillDetailsPage = () => {
     const bill = useLoaderData();
     const [loading, setLoading] = useState(true);
 
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // Ensure a minimum 500ms loading animation for smoother UX
     useEffect(() => {
         const timer = setTimeout(() => setLoading(false), 500);

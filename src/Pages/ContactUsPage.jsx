@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Mail, Send, Phone, User, MessageSquare, AtSign } from 'lucide-react';
 import Swal from 'sweetalert2';
 
 const ContactUsPage = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();

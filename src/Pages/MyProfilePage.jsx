@@ -17,6 +17,10 @@ const MyProfilePage = () => {
     const [newName, setNewName] = useState("");
     const [newPhotoUrl, setNewPhotoUrl] = useState("");
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // Custom Date Formatter: "1 December 2025"
     const formatDate = (dateString) => {
         if (!dateString) return "N/A";

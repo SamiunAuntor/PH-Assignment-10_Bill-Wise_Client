@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -25,6 +25,10 @@ const SignUp = () => {
         if (!/[a-z]/.test(password)) return "Password must contain at least one lowercase letter.";
         return "";
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleSignUp = async (e) => {
         e.preventDefault();

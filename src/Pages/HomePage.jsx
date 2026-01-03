@@ -11,6 +11,11 @@ const HomePage = () => {
     const recentBillsData = useLoaderData();
     const [loading, setLoading] = useState(true);
 
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     useEffect(() => {
         // Ensure loader shows at least 0.5s
         const timer = setTimeout(() => {
