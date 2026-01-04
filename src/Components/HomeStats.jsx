@@ -6,7 +6,7 @@ const HomeStats = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5000/public-stats')
+        fetch('https://bill-wise-server.vercel.app/public-stats')
             .then(res => res.json())
             .then(data => {
                 setStats(data);
