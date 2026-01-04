@@ -7,6 +7,7 @@ import { LifeLine } from 'react-loading-indicators';
 import WhyChooseBillWise from '../Components/WhyChooseBillWise';
 import WhatOurUsersSay from '../Components/WhatOurUsersSay';
 import FAQ from '../Components/FAQ';
+import HomeStats from '../Components/HomeStats';
 
 const HomePage = () => {
     const recentBillsData = useLoaderData();
@@ -39,6 +40,7 @@ const HomePage = () => {
             <Banner />
             <CategorySection />
             <RecentBills recentBillsData={recentBillsData} />
+            <HomeStats></HomeStats>
             <WhyChooseBillWise></WhyChooseBillWise>
             <WhatOurUsersSay></WhatOurUsersSay>
             <FAQ></FAQ>
