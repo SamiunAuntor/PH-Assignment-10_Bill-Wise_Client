@@ -34,7 +34,7 @@ const WhyChooseBillWise = () => {
 
             {/* Title */}
             <Fade triggerOnce>
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-700">
+                <h2 className="text-4xl font-black text-center text-blue-700">
                     Why Choose <span className="text-blue-500">BillWise?</span>
                 </h2>
                 <p className="text-center text-gray-600 mt-2">

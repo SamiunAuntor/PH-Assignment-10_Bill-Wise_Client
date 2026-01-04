@@ -7,7 +7,7 @@ const RecentBills = ({ recentBillsData }) => {
         <div className="w-11/12 mx-auto mt-12 pb-20"> 
             
             {/* Section Title */}
-            <h2 className="text-3xl md:text-3xl font-bold text-blue-700 mb-6 text-center">
+            <h2 className="text-4xl font-black text-blue-700 mb-12 text-center">
                 Recent <span className='text-blue-500'>Bills</span>
             </h2>
 

@@ -26,7 +26,7 @@ const users = [
 const WhatOurUsersSay = () => {
     return (
         <div className="w-11/12 mx-auto py-10">
-            <h2 className="text-3xl text-blue-700 font-bold text-center mb-8">What Our <span className='text-blue-500'>Users Say</span></h2>
+            <h2 className="text-4xl text-blue-700 font-black text-center mb-12">What Our <span className='text-blue-500'>Users Say</span></h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {users.map((user, index) => (
                     <div key={index} className="bg-white shadow-lg rounded-xl p-4 flex flex-col gap-4">

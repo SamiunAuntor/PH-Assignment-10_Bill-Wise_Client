@@ -35,7 +35,7 @@ const FAQ = () => {
         <section className="py-16">
             <div className="max-w-3xl mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-blue-700 mb-4">Frequently Asked <span className="text-blue-500">Questions</span> </h2>
+                    <h2 className="text-4xl font-black text-blue-700 mb-4">Frequently Asked <span className="text-blue-500">Questions</span> </h2>
                     <p className="text-gray-600">Have questions? We're here to help you understand how BillWise works.</p>
                 </div>
 

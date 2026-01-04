@@ -52,7 +52,7 @@ const HomeStats = () => {
     ];
 
     return (
-        <div className="py-16 bg-blue-50">
+        <div className="py-10 bg-blue-50">
             <div className="w-11/12 mx-auto">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-black text-blue-700">Our Impact in <span className='text-blue-500'>Numbers</span></h2>
