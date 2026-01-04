@@ -193,44 +193,6 @@ const ManageAllBills = () => {
         });
     };
 
-    const handleAddPublicBill = async () => {
-        if (!publicBillForm.title || !publicBillForm.category || !publicBillForm.amount || !publicBillForm.date) {
-            Swal.fire('Error', 'Please fill in all required fields', 'warning');
-            return;
-        }
-
-        try {
-            const token = await user.getIdToken();
-            const res = await fetch('https://bill-wise-server.vercel.app/admin/add-public-bill', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(publicBillForm)
-            });
-
-            if (res.ok) {
-                Swal.fire('Success', 'Public bill added successfully!', 'success');
-                setAddModalOpen(false);
-                setPublicBillForm({
-                    title: '',
-                    category: '',
-                    email: '',
-                    location: '',
-                    description: '',
-                    image: '',
-                    date: '',
-                    amount: ''
-                });
-            } else {
-                throw new Error('Add failed');
-            }
-        } catch (err) {
-            console.error('Add error:', err);
-            Swal.fire('Error', 'Failed to add public bill', 'error');
-        }
-    };
 
     // Pagination
     const totalPages = Math.ceil(filteredBills.length / itemsPerPage);
@@ -253,13 +215,7 @@ const ManageAllBills = () => {
                     <h1 className="text-3xl font-bold text-blue-600 mb-2">Manage All Bills</h1>
                     <p className="text-gray-600">View and manage all bill payments from all users</p>
                 </div>
-                <button
-                    onClick={() => setAddModalOpen(true)}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                    <Plus size={20} />
-                    Add Public Bill
-                </button>
+                
             </div>
 
             {/* Filters and Search */}
@@ -485,91 +441,7 @@ const ManageAllBills = () => {
                 </div>
             )}
 
-            {/* Add Public Bill Modal */}
-            {addModalOpen && (
-                <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/40 backdrop-blur-sm overflow-y-auto">
-                    <div className="bg-blue-50 rounded-2xl shadow-xl p-6 w-11/12 max-w-2xl relative border border-blue-200 my-8">
-                        <h2 className="text-2xl font-bold text-blue-700 mb-5 text-center">Add Public Bill</h2>
-                        <button
-                            onClick={() => setAddModalOpen(false)}
-                            className="absolute top-4 right-4 text-blue-600 hover:text-blue-800 font-bold text-2xl"
-                        >
-                            &times;
-                        </button>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <label className="font-semibold text-blue-700">Title *</label>
-                            <input
-                                type="text"
-                                placeholder="Title"
-                                value={publicBillForm.title}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, title: e.target.value })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <label className="font-semibold text-blue-700">Category *</label>
-                            <input
-                                type="text"
-                                placeholder="Category"
-                                value={publicBillForm.category}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, category: e.target.value })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <label className="font-semibold text-blue-700">Email</label>
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={publicBillForm.email}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, email: e.target.value })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <label className="font-semibold text-blue-700">Location</label>
-                            <input
-                                type="text"
-                                placeholder="Location"
-                                value={publicBillForm.location}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, location: e.target.value })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <label className="font-semibold text-blue-700 col-span-full">Description</label>
-                            <textarea
-                                placeholder="Description"
-                                value={publicBillForm.description}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, description: e.target.value })}
-                                className="col-span-full px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                                rows="3"
-                            />
-                            <label className="font-semibold text-blue-700">Image URL</label>
-                            <input
-                                type="url"
-                                placeholder="Image URL"
-                                value={publicBillForm.image}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, image: e.target.value })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <label className="font-semibold text-blue-700">Date *</label>
-                            <input
-                                type="date"
-                                value={publicBillForm.date}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, date: e.target.value })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <label className="font-semibold text-blue-700">Amount *</label>
-                            <input
-                                type="number"
-                                placeholder="Amount"
-                                value={publicBillForm.amount}
-                                onChange={(e) => setPublicBillForm({ ...publicBillForm, amount: e.target.value === "" ? "" : Number(e.target.value) })}
-                                className="px-4 py-2 border border-blue-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-600"
-                            />
-                            <button
-                                onClick={handleAddPublicBill}
-                                className="col-span-full w-full py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700"
-                            >
-                                Add Public Bill
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 };
